@@ -2,24 +2,26 @@ const router = require('express').Router();
 let FantasyTeam = require('../models/fantasyTeam.model');
 
 router.route('/').get((req, res) => {
-  fantasyTeam.find()
+  FantasyTeam.find()
     .then(fantasyTeams => res.json(fantasyTeams))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req, res) => {
-  const username = req.body.fantasyTeam;
-  const firstName = req.body.fantasyTeam;
-  const lastName = req.body.fantasyTeam;
+  const username = req.body.username;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const teamName = req.body.teamName;
 
-  const newfantasyTeam = new FantasyTeam({
+  const newFantasyTeam = new FantasyTeam({
       username,
       firstName,
-      lastName
+      lastName,
+      teamName
     });
 
-  newfantasyTeam.save()
-    .then(() => res.json('fantasyTeam added!'))
+  newFantasyTeam.save()
+    .then(() => res.json('fantasyTeam added!' + newFantasyTeam))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
